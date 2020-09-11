@@ -4,8 +4,20 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>顶功计算器</title>
+    <style>
+      #left, #right {
+        width: 49%;
+        float: left;
+      }
+      li button {
+        float: right;
+      }
+    </style>
   </head>
   <body>
+    <h1>顶功计算器</h1>
+    <p>本页面可用于验证您设计的顶功方案是否为唯一可译码。您可以首先选择您需要的码元划分组数，然后逐个添加描述编码的表达式。</p>
+    <p>表达式的可用符号为 U、A、B、C、……。U 表示全部符号集，A、B、C、……是各个互不相交的子集。</p>
     <div id="root"></div>
   </body>
 </html>

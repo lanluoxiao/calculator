@@ -8,7 +8,7 @@ const findAffix = (string, prefix) => {
     return returnSet
 }
 
-const wildcardExpansion = (rawLanguage, alphabet) => {
+const wildcardExpansion = (alphabet, rawLanguage) => {
     let language = [...rawLanguage]
     while (!language.every(x => !x.includes('U'))) {
         let newLanguage = []
@@ -26,19 +26,22 @@ const wildcardExpansion = (rawLanguage, alphabet) => {
     return language
 }
 
-const isUnique = (rawLanguage, alphabet) => {
-    let language = wildcardExpansion(rawLanguage, alphabet);
+const isUnique = (alphabet, rawLanguage) => {
+    let language = new Set(wildcardExpansion(alphabet, rawLanguage));
     let affix = new Set();
     let moreAffix = findAffix(language, language);
-    let size = -1;
+    let size = 0;
 
-    while (affix.length > size) {
-        size = affix.length
-        console.log(moreAffix)
-        affix.add(...moreAffix)
+    do {
+        size = affix.size
+        affix = new Set([...affix, ...moreAffix])
+        console.log(affix, language)
         moreAffix = new Set([...findAffix(language, affix), ...findAffix(affix, language)])
-    }
-    return [...language].filter(x => affix.has(x))
+    } while (affix.size > size)
+    let intersect = [...language].filter(x => affix.has(x))
+    console.log(intersect);
+    if (intersect.length === 0) return '是唯一码'
+    else return '不是唯一码'
 }
 
-module.exports = isUnique
+export default isUnique
